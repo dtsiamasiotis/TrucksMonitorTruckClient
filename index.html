@@ -1,0 +1,28 @@
+<!doctype html>
+<html ng-app='TruckMonitorClient' lang="en">
+  <head>
+    <title>Send message to server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <style>
+      .message { font-size: 1.3em; font-weight: bold; }
+    </style>
+      <script src="angular.min.js"></script>
+      <script src="app.js"></script>
+  </head>
+<body>
+   <div ng-controller='TruckMonitorClientController as truckMonitorClientController' class="container">
+     <h1>Send message</h1>
+
+         <div  class="form-group">
+             <input id="lunch-menu" type="text"
+             class="form-control"
+             ng-model="message">
+         </div>
+         <div class="form-group">
+             <button ng-click="truckMonitorClientController.sendMessage(message);" class="btn btn-default">Send</button>
+         </div>
+   </div>
+
+</body>
+</html>
