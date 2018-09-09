@@ -20,7 +20,7 @@
              ng-model="message">
          </div>
          <div class="form-group">
-             <button ng-click="truckMonitorClientController.sendMessage(message);" class="btn btn-default">Send</button>
+             <button ng-show=truckMonitorClientController.socketIsOpen() ng-click="truckMonitorClientController.sendMessage(message);" class="btn btn-default">Send</button>
          </div>
    </div>
 
