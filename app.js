@@ -20,12 +20,14 @@
 
 
 
-        this.socket.onmessage = function () {
-            console.log("message received");
+        this.socket.onmessage = function (evt) {
+            console.log(evt.data);
             GeolocationService.getLocation();
-            $timeout(function (socket){
-                socket.send("coordinates:"+GeolocationService.getLat()+","+GeolocationService.getLng());
-            },5000,true,this);
+            $timeout(function (socket,evt){
+                var orderId = evt.data.split("|")[1];
+                console.log(orderId);
+                socket.send("coordinates:"+GeolocationService.getLat()+","+GeolocationService.getLng()+"|"+orderId);
+            },5000,true,this,evt);
 
         };
 
