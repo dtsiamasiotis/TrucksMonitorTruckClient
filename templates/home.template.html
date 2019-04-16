@@ -1,0 +1,12 @@
+<div ng-controller='TruckMonitorClientController as truckMonitorClientController' class="container">
+    <h1>Send message</h1>
+
+    <div  class="form-group">
+        <input id="lunch-menu" type="text"
+               class="form-control"
+               ng-model="message">
+    </div>
+    <div class="form-group">
+        <button ng-show=truckMonitorClientController.socketIsOpen() ng-click="truckMonitorClientController.sendMessage(message);" class="btn btn-default">Send</button>
+    </div>
+</div>

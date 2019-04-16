@@ -5,27 +5,25 @@
         .controller('LoginController', LoginController);
 
 
-    LoginController.$inject=['$http'];
-    function LoginController($http) {
+    LoginController.$inject=['$state','LoginService'];
+    function LoginController($state,LoginService) {
         var self = this;
+        var isAuthenticated = false;
 
         self.validateLogin = function(username,password)
         {
             console.log(username+","+password);
-            self.askServer(username+password);
+            isAuthenticated = LoginService.askServer(username+password).then(function(aunthenticationResult){isAuthenticated=aunthenticationResult;
+            if(isAuthenticated) {
+                $state.transitionTo('home');
+            }});
+
         };
 
-        self.askServer=function(requestBody){
-            return $http({
-                method:"POST",
-                url:("http://localhost:4000/validateLogin"),
-                data: requestBody
-            })
-                .then(function(response){
-                    console.log(response);
-                });
-        };
+
     }
+
+
 
 })();
 

@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    angular.module('TruckMonitorClient',[])
+    angular.module('TruckMonitorClient',['ui.router'])
         .controller('TruckMonitorClientController',TruckMonitorClientController)
         .service('GeolocationService',GeolocationService);
 

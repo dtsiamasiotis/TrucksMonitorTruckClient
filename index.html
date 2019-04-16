@@ -8,39 +8,15 @@
       .message { font-size: 1.3em; font-weight: bold; }
     </style>
       <script src="angular.min.js"></script>
+      <script src="angular-ui-router.min.js"></script>
       <script src="app.js"></script>
+      <script src="routes.js"></script>
+      <script src="loginservice.js"></script>
       <script src="LoginController.js"></script>
+
+
   </head>
 <body>
-   <div ng-controller='TruckMonitorClientController as truckMonitorClientController' class="container">
-     <h1>Send message</h1>
-
-         <div  class="form-group">
-             <input id="lunch-menu" type="text"
-             class="form-control"
-             ng-model="message">
-         </div>
-         <div class="form-group">
-             <button ng-show=truckMonitorClientController.socketIsOpen() ng-click="truckMonitorClientController.sendMessage(message);" class="btn btn-default">Send</button>
-         </div>
-   </div>
-
-   <div ng-controller='LoginController as loginController' class="container">
-       <h1>Enter Credentials</h1>
-
-       <div  class="form-group">
-           Username<input id="Username" type="text"
-                  class="form-control"
-                  ng-model="username">
-           Password<input id="Password" type="text"
-                  class="form-control"
-                  ng-model="password">
-       </div>
-       <div class="form-group">
-           <button ng-click="loginController.validateLogin(username,password);" class="btn btn-default">Login</button>
-       </div>
-   </div>
-
-
+<ui-view></ui-view>
 </body>
 </html>
