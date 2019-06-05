@@ -1,12 +1,10 @@
-<div ng-controller='TruckMonitorClientController as truckMonitorClientController' class="container">
-    <h1>Send message</h1>
 
-    <div  class="form-group">
-        <input id="lunch-menu" type="text"
-               class="form-control"
-               ng-model="message">
-    </div>
+    <h1>Pending Order</h1>
+
+
     <div class="form-group">
-        <button ng-show=truckMonitorClientController.socketIsOpen() ng-click="truckMonitorClientController.sendMessage(message);" class="btn btn-default">Send</button>
+
     </div>
-</div>
+    <div class="emptyMessage" ng-hide="homeController.pendingOrder==undefined">{{homeController.pendingOrder.address}}
+        <button ng-click="homeController.showAddressOnMap();" class="btn btn-default">Show on map</button>
+    </div>
