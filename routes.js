@@ -15,7 +15,7 @@
             .state('home', {
                 url: '/home',
                 templateUrl: 'templates/home.template.html',
-                //controller: 'OrdersController as orders',
+                controller: 'HomeController as homeController',
                 resolve:{tasks:function(LoginService,$state){
                 if(!LoginService.getAuthenticationResult())
                 {
