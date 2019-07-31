@@ -7,10 +7,11 @@
     function GoogleService($http){
         var service = this;
         var aunthenticationResult = false;
-        service.askServer=function(){
+        service.askServer=function(address){
            return $http({
                 method:"GET",
-                url:("http://localhost:4000/googleService")
+                //url:("http://localhost:4000/googleService")
+               url:("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=")
 
             })
                 .then(function(response){

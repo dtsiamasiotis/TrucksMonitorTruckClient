@@ -7,39 +7,42 @@
     HomeController.$inject = ['GoogleService','$scope'];
     function HomeController(GoogleService,$scope) {
         var self = this;
-        self.pendingOrder = {address:"Kastorias 4", quantity:"20"};
+        self.showMap = false;
+        self.showMapText = "Show on map";
+        self.pendingOrder = {address:"Makedonias 28,Agia Paraskevi", quantity:"20", coordinates:null};
         console.log(document.getElementById('map'));
         self.map = new google.maps.Map(document.getElementById('map'), {
             zoom: 8,
-            center: {lat: -34.397, lng: 150.644}
+            center: {lat: 37.990832, lng: 23.7032341}
         });
 
 
-        console.log(map);
+        self.showHideAddressOnMap = function(){
+            if(self.showMap)
+            {
+                self.showMap = false;
+                self.showMapText = "Show on map";
+                return;
+            }
+            else {
+                if(self.pendingOrder.coordinates==null)
+                {
+                    var markerPosition = GoogleService.askServer(self.pendingOrder.address).then(function (results) {
+                        markerPosition = results;
 
-        var mapOptions = {
-            zoom: 4,
-            center: new google.maps.LatLng(25,80),
-            mapTypeId: google.maps.MapTypeId.TERRAIN
-        }
+                        self.map.setCenter(markerPosition);
+                        self.mapMarker = new google.maps.Marker({
+                            map: self.map,
+                            position: new google.maps.LatLng(markerPosition.lat, markerPosition.lng)
+                        });
+                    });
+                }
 
-        $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                    self.showMap = true;
+                    self.showMapText = "Hide map";
 
-        console.log(map);//var geocoder = new google.maps.Geocoder();
 
-
-        //self.showPendingOrderDetails = function()
-       // {
-
-         //   isAuthenticated = LoginService.askServer(username+password).then(function(aunthenticationResult){isAuthenticated=aunthenticationResult;
-        //    if(isAuthenticated) {
-        //        $state.transitionTo('home');
-        //    }});
-
-       // };
-
-        self.showAddressOnMap = function(){
-            var markerPosition = GoogleService.askServer();
+            }
 
         }
 

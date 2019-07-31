@@ -6,9 +6,6 @@
 
     </div>
     <div class="emptyMessage" ng-hide="homeController.pendingOrder==undefined">{{homeController.pendingOrder.address}}
-        <button ng-click="homeController.showAddressOnMap();" class="btn btn-default">Show on map</button>
-
+        <button ng-click="homeController.showHideAddressOnMap();" class="btn btn-default">{{homeController.showMapText}}</button>
     </div>
-    <!--<div style="height:100%; width:100%;">-->
-        <div id="map"></div>
-    <!--</div>-->
+    <div id="map" ng-hide="!homeController.showMap"></div>
