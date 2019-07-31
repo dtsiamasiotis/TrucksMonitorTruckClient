@@ -21,7 +21,7 @@
                 {
                     $state.transitionTo('login');
                 }
-                        console.log(LoginService.getAuthenticationResult());
+
                }}
 
             });
