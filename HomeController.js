@@ -4,8 +4,8 @@
     angular.module('TruckMonitorClient')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['GoogleService','$scope'];
-    function HomeController(GoogleService,$scope) {
+    HomeController.$inject = ['GoogleService','$scope','WebSocketService'];
+    function HomeController(GoogleService,$scope,WebSocketService) {
         var self = this;
         self.showMap = false;
         self.showMapText = "Show on map";
@@ -43,7 +43,7 @@
 
 
             }
-
+            webSocketService.sendMessage("test");
         }
 
     }

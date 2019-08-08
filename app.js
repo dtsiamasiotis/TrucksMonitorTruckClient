@@ -5,9 +5,9 @@
         .controller('TruckMonitorClientController',TruckMonitorClientController)
         .service('GeolocationService',GeolocationService);
 
-    TruckMonitorClientController.$inject = ['GeolocationService','$timeout'];
+    TruckMonitorClientController.$inject = ['GeolocationService','OrderService','$timeout'];
 
-    function TruckMonitorClientController(GeolocationService,$timeout){
+    function TruckMonitorClientController(GeolocationService,OrderService,$timeout){
         this.socket = new WebSocket("ws://localhost:8080/servlet/actions");
         this.lat = 0;
         this.lng = 0;
