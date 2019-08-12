@@ -4,13 +4,12 @@
     angular.module('TruckMonitorClient')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['GoogleService','$scope','WebSocketService'];
-    function HomeController(GoogleService,$scope,WebSocketService) {
+    HomeController.$inject = ['GoogleService','$scope'];
+    function HomeController(GoogleService,$scope) {
         var self = this;
         self.showMap = false;
         self.showMapText = "Show on map";
         self.pendingOrder = {address:"Makedonias 28,Agia Paraskevi", quantity:"20", coordinates:null};
-        console.log(document.getElementById('map'));
         self.map = new google.maps.Map(document.getElementById('map'), {
             zoom: 8,
             center: {lat: 37.990832, lng: 23.7032341}
@@ -43,8 +42,10 @@
 
 
             }
-            webSocketService.sendMessage("test");
+
         }
+
+
 
     }
 
