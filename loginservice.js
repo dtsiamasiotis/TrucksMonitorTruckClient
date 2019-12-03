@@ -14,12 +14,11 @@
                 data: requestBody
             })
                 .then(function(response){
-                    var result=false;
-                    if(requestBody==="adminpass")
+                    var result = response.data.result;
+
+                    if(result==="correct")
                     {
                         aunthenticationResult = true;
-
-
                     }
                     else
                     {
@@ -28,7 +27,10 @@
 
                     console.log(response);
                     return aunthenticationResult;
-                });
+                })
+               .catch(function (error) {
+                   console.error(error); // Note: this logs the js type error
+               });
 
         };
 
