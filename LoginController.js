@@ -5,20 +5,31 @@
         .controller('LoginController', LoginController);
 
 
-    LoginController.$inject=['$state','LoginService','WebSocketService'];
-    function LoginController($state,LoginService,WebSocketService) {
+    LoginController.$inject=['$state','LoginService','WebSocketService','md5'];
+    function LoginController($state,LoginService,WebSocketService,md5) {
         var self = this;
         var isAuthenticated = false;
+        var wrongCredentials = false;
 
         self.validateLogin = function(username,password)
         {
-            console.log(username+","+password);
-            isAuthenticated = LoginService.askServer(username+password).then(function(aunthenticationResult){isAuthenticated=aunthenticationResult;
+            var passwordHash = md5.createHash(password);
+            console.log(passwordHash);
+            var user = {username:username,password:passwordHash};
+            isAuthenticated = LoginService.askServer(JSON.stringify(user)).then(function(aunthenticationResult){isAuthenticated=aunthenticationResult;
             if(isAuthenticated) {
                 WebSocketService.openConnection();
                 $state.transitionTo('home');
+            }
+            else{
+                wrongCredentials = true;
             }});
 
+        };
+
+        self.getStatusOfCredentials = function()
+        {
+            return wrongCredentials;
         };
 
 
