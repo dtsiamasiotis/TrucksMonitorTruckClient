@@ -4,14 +4,14 @@
         .service('WebSocketService',WebSocketService);
 
 
-    WebSocketService.$inject = ['GeolocationService','$timeout'];
-    function WebSocketService(GeolocationService,$timeout){
+    WebSocketService.$inject = ['GeolocationService','$timeout','OrderService'];
+    function WebSocketService(GeolocationService,$timeout,OrderService){
         var service = this;
         var socket = null;
 
 
-        service.openConnection = function() {
-            service.socket = new WebSocket("ws://localhost:8080/servlet/actions");
+        service.openConnection = function(licenceplate) {
+            service.socket = new WebSocket("ws://localhost:8080/servlet/actions/"+licenceplate);
 
 
             service.socket.onmessage = function (evt) {
@@ -23,6 +23,8 @@
                     var order = jsonObject["order"];
                     var orderId = order.orderId;
                     console.log(orderId);
+                    order.address="Kountouriotou 253,Peiraias";
+                    OrderService.setPendingOrder(order);
                     var responseObj = {operation:"sharePosition",coordinates:GeolocationService.getLat()+","+GeolocationService.getLng(),order:order};
                     var responseObjJson = JSON.stringify(responseObj);
                     socket.send(responseObjJson);

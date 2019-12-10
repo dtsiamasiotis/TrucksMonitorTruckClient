@@ -4,8 +4,8 @@
     angular.module('TruckMonitorClient')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['GoogleService','$scope'];
-    function HomeController(GoogleService,$scope) {
+    HomeController.$inject = ['GoogleService','$scope','OrderService'];
+    function HomeController(GoogleService,$scope,OrderService) {
         var self = this;
         self.showMap = false;
         self.showMapText = "Show on map";
@@ -24,6 +24,7 @@
                 return;
             }
             else {
+                self.pendingOrder=OrderService.getPendingOrder();
                 if(self.pendingOrder.coordinates==null)
                 {
                     var markerPosition = GoogleService.askServer(self.pendingOrder.address).then(function (results) {
