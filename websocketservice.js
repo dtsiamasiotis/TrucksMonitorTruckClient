@@ -20,14 +20,25 @@
                 console.log(evt.data);
                 GeolocationService.getLocation();
                 $timeout(function (socket, evt) {
+                    var operation = jsonObject["operation"];
                     var order = jsonObject["order"];
-                    var orderId = order.orderId;
-                    console.log(orderId);
-                    order.address="Kountouriotou 253,Peiraias";
-                    OrderService.setPendingOrder(order);
-                    var responseObj = {operation:"sharePosition",coordinates:GeolocationService.getLat()+","+GeolocationService.getLng(),order:order};
-                    var responseObjJson = JSON.stringify(responseObj);
-                    socket.send(responseObjJson);
+                    if (operation === "serveOrder") {
+
+                        //var orderId = order.orderId;
+                       // console.log(orderId);
+                        //order.address = ;
+                        OrderService.setPendingOrder(order);
+                        //$scope.$apply();
+                    }
+                    else {
+                        var responseObj = {
+                            operation: "sharePosition",
+                            coordinates: GeolocationService.getLat() + "," + GeolocationService.getLng(),
+                            order: order
+                        };
+                        var responseObjJson = JSON.stringify(responseObj);
+                        socket.send(responseObjJson);
+                    }
                 }, 5000, true, this, evt);
 
             };
