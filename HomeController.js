@@ -4,12 +4,13 @@
     angular.module('TruckMonitorClient')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['GoogleService','$scope','OrderService'];
-    function HomeController(GoogleService,$scope,OrderService) {
+    HomeController.$inject = ['GoogleService','$scope','OrderService','$interval'];
+    function HomeController(GoogleService,$scope,OrderService,$interval) {
         var self = this;
         self.showMap = false;
         self.showMapText = "Show on map";
-        self.pendingOrder = {address:"Makedonias 28,Agia Paraskevi", quantity:"20", coordinates:null};
+        //self.pendingOrder = {address:"Makedonias 28,Agia Paraskevi", quantity:"20", coordinates:null};
+        self.pendingOrder = $scope.pendingOrder;
         self.map = new google.maps.Map(document.getElementById('map'), {
             zoom: 8,
             center: {lat: 37.990832, lng: 23.7032341}
@@ -45,6 +46,11 @@
             }
 
         }
+
+
+        $interval(function(){
+            self.pendingOrder = OrderService.getPendingOrder();
+        },5000);
 
 
 
