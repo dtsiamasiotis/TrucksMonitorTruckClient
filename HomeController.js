@@ -4,8 +4,8 @@
     angular.module('TruckMonitorClient')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['GoogleService','$scope','OrderService','$interval'];
-    function HomeController(GoogleService,$scope,OrderService,$interval) {
+    HomeController.$inject = ['GoogleService','$scope','OrderService','$interval','WebSocketService'];
+    function HomeController(GoogleService,$scope,OrderService,$interval,WebSocketService) {
         var self = this;
         self.showMap = false;
         self.showMapText = "Show on map";
@@ -52,7 +52,20 @@
             self.pendingOrder = OrderService.getPendingOrder();
         },5000);
 
+        self.completeOrder = function(){
 
+            var responseObj = {
+                operation: "completeOrder",
+                //coordinates: "",
+                order: OrderService.getPendingOrder()
+            };
+            var responseObjJson = JSON.stringify(responseObj);
+            //console.log(responseObjJson);
+            WebSocketService.sendMessage(responseObjJson);
+            OrderService.setPendingOrder(null);
+            self.showMap = false;
+            self.showMapText = "Show map";
+        }
 
     }
 

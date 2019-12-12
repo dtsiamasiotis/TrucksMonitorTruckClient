@@ -5,7 +5,8 @@
     <div class="form-group">
 
     </div>
-    <div class="emptyMessage" ng-hide="homeController.pendingOrder==undefined">{{homeController.pendingOrder.address}}
+    <div class="emptyMessage" ng-hide="homeController.pendingOrder==undefined || homeController.pendingOrder==null">{{homeController.pendingOrder.address}}
         <button ng-click="homeController.showHideAddressOnMap();" class="btn btn-default">{{homeController.showMapText}}</button>
     </div>
     <div id="map" ng-hide="!homeController.showMap"></div>
+    <button ng-hide="homeController.pendingOrder==undefined || homeController.pendingOrder==null" ng-click="homeController.completeOrder();" class="btn btn-default">Complete Order</button>
