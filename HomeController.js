@@ -62,9 +62,21 @@
             var responseObjJson = JSON.stringify(responseObj);
             //console.log(responseObjJson);
             WebSocketService.sendMessage(responseObjJson);
+            OrderService.addCompletedOrders();
             OrderService.setPendingOrder(null);
             self.showMap = false;
             self.showMapText = "Show map";
+        }
+
+        self.acceptOrder = function(){
+            var responseObj = {
+                operation: "acceptOrder",
+                order: OrderService.getPendingOrder()
+            };
+            var responseObjJson = JSON.stringify(responseObj);
+            console.log(responseObjJson);
+            WebSocketService.sendMessage(responseObjJson);
+            self.pendingOrder.status="ACCEPTED";
         }
 
     }

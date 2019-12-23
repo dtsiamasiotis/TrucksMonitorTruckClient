@@ -3,7 +3,6 @@
     angular.module('TruckMonitorClient')
         .service('OrderService',OrderService);
 
-
     function OrderService(){
         var service = this;
         var pendingOrder;
@@ -17,5 +16,8 @@
             service.pendingOrder = order;
         }
 
+        service.addCompletedOrders = function(){
+            completedOrders.push(service.getPendingOrder());
+        }
     }
 })();
